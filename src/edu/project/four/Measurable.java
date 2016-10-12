@@ -2,14 +2,14 @@ package edu.project.four;
 
 import java.util.ArrayList;
 
-public abstract class Measurable<T> {
+public abstract class Measurable{
 	public abstract double getMeasure();
 
-	public static <T extends Measurable<T>, U extends T> T largest(ArrayList<U> objects) {
+	public static <T extends Comparable<T>> T largest(ArrayList<T> objects) {
 		T largest = objects.get(0);
-		for (int i = 0; i < objects.size(); i++) {
-			if (objects.get(i).getMeasure() > largest.getMeasure()) {
-				largest = objects.get(i);
+		for (T e:objects){
+			if(largest.compareTo(e)<0){
+				largest = e;
 			}
 		}
 		return largest;
