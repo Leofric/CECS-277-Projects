@@ -52,7 +52,7 @@ public class BinarySearchTester implements EmployeeInfo {
 			System.out.println(e+"\n");
 		}
 
-		//So.. what are we searching for here?? 
+//		So.. what are we searching for here?? 
 //		BinarySearch<Faculty> fa = new BinarySearch<Faculty>(faculty);
 //		System.out.println("Enter the __ of the Faculty memeber you wish to search for");
 //		result = fa.search(?);
