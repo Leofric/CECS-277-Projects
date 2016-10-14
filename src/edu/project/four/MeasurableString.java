@@ -1,6 +1,6 @@
 package edu.project.four;
 
-public class MeasurableString<T> extends Measurable implements Comparable{
+public class MeasurableString extends Measurable implements Comparable{
 
 	private final String data;
 	
