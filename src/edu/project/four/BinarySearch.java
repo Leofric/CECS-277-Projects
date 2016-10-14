@@ -2,18 +2,20 @@ package edu.project.four;
 
 /**
  * A class for executing binary searches through an array.
+ * @param <T>
  */
-public class BinarySearch {
-	private int[] a;
+public class BinarySearch<T extends Comparable<T>> {
+	private T[] a;
 
 	/**
 	 * Constructs a BinarySearcher.
+	 * @param <T>
 	 * 
 	 * @param anArray
 	 *            a sorted array
 	 */
-	public BinarySearch(int[] anArray) {
-		a = anArray;
+	public BinarySearch(T[] anArray) {
+		a =  anArray;
 	}
 
 	/**
@@ -24,12 +26,12 @@ public class BinarySearch {
 	 * @return the index at which the value occurs, or -1 if it does not occur
 	 *         in the array
 	 */
-	public int search(int v) {
+	public int search(T v) {
 		int low = 0;
 		int high = a.length - 1;
 		while (low <= high) {
 			int mid = (low + high) / 2;
-			int diff = a[mid] - v;
+			int diff = a[mid].compareTo(v);
 
 			if (diff == 0) // a[mid] == v
 				return mid;
