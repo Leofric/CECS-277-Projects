@@ -52,7 +52,7 @@ public class Tester {
 	}
 
 	static void displayMenu() {
-		System.out.println("Press 1 to demo 1");
+		System.out.println("Press 1 to Test Largest");
 		System.out.println("Press 2 to print the faculty array");
 		System.out.println("Press 3 to sort and print the faculty array (Insertion sort)");
 		System.out.println("Press 4 to search for an ID number of a faculty member in the array");
