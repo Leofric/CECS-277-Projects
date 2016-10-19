@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 /**
  * generic This generic class is used to compare all objects that are Measurable
- * 
  * @author alexberthon
  * @version 1.0
  */
@@ -13,9 +12,7 @@ public abstract class Measurable {
 
 	/**
 	 * This generic method returns the largest element in an array
-	 * 
-	 * @param objects
-	 *            an array of objects, type T
+	 * @param objects an array of objects, type T
 	 * @return the largest element in the array, type T
 	 */
 	public static <T extends Comparable<T>> T largest(ArrayList<T> objects) {

@@ -46,9 +46,9 @@ public class Tester {
 		int result = searcher.search(check);
 
 		if (result < 0) {
-			System.out.println("The data was not found");
+			System.out.println("\nThe data was not found\n");
 		} else
-			System.out.println("The data is located at index " + result + "\n");
+			System.out.println("\n"+faculty[result]+"\nWas found at index " + result + "\n");
 	}
 
 	static void displayMenu() {
@@ -78,9 +78,9 @@ public class Tester {
 	}
 
 	static Faculty[] initialize(Faculty[] faculty) {
-		faculty[0] = new Faculty("0", "Morgan", "De'Morgan");
-		faculty[1] = new Faculty("1", "William", "Clark");
-		faculty[2] = new Faculty("2", "Serah", "Villiers");
+		faculty[0] = new Faculty("114", "Morgan", "De'Morgan");
+		faculty[1] = new Faculty("101", "William", "Clark");
+		faculty[2] = new Faculty("186", "Serah", "Villiers");
 		return faculty;
 	}
 

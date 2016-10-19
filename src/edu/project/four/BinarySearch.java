@@ -10,7 +10,6 @@ public class BinarySearch<T extends Comparable<T>> {
 	/**
 	 * Constructs a BinarySearcher.
 	 * @param <T>
-	 * 
 	 * @param anArray
 	 *            a sorted array
 	 */
@@ -20,11 +19,8 @@ public class BinarySearch<T extends Comparable<T>> {
 
 	/**
 	 * Finds a value in a sorted array, using the binary search algorithm.
-	 * 
-	 * @param v
-	 *            the value to search
-	 * @return the index at which the value occurs, or -1 if it does not occur
-	 *         in the array
+	 * @param v the value to search
+	 * @return the index at which the value occurs, or -1 if it does not occur in the array
 	 */
 	public int search(T v) {
 		int low = 0;

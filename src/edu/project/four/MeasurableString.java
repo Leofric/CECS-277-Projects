@@ -2,7 +2,6 @@ package edu.project.four;
 
 /**
  * This class formatts string objects to be used by the measurable class
- * 
  * @author alexberthon
  * @version 1.0
  */
@@ -12,7 +11,6 @@ public class MeasurableString extends Measurable implements Comparable {
 
 	/**
 	 * Constructor
-	 * 
 	 * @param string
 	 *            string to be converted to type MeasurableString
 	 */
@@ -37,9 +35,7 @@ public class MeasurableString extends Measurable implements Comparable {
 	/**
 	 * This method defines the compareTo method, compares two measurable string
 	 * objects
-	 * 
-	 * @param object
-	 *            the object to compare
+	 * @param object the object to compare
 	 * @return value indicating the larger string
 	 */
 	public int compareTo(Object object) {
