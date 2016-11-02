@@ -40,7 +40,7 @@ public class WordFrequency {
 		Set<String> s = map.keySet();
 		Set<String> ts = new TreeSet<String>(s);
 		for(String e: ts){
-			System.out.println(e+" : "+map.get(e));
+			System.out.println(e+"	: "+map.get(e));
 		}
 	}
 
