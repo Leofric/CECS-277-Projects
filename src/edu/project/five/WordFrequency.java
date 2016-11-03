@@ -22,6 +22,14 @@ public class WordFrequency {
 		while (input.hasNextLine()) {
 			String inputLine = input.nextLine();
 			String[] tokens = inputLine.split(" ");
+
+			// remove punctuation
+			for (int i = 0; i < tokens.length; i++) {
+				if (tokens[i].contains(".") || tokens[i].contains(",")) {
+					tokens[i] = tokens[i].substring(0, tokens[i].length() - 1);
+				}
+			}
+
 			for (String s : tokens) {
 				if (map.containsKey(s)) {
 					int value = map.get(s);
@@ -39,9 +47,27 @@ public class WordFrequency {
 	public static void displayMap(Map<String, Integer> map) {
 		Set<String> s = map.keySet();
 		Set<String> ts = new TreeSet<String>(s);
-		for(String e: ts){
-			System.out.println(e+"	: "+map.get(e));
+		int largest = 0;
+		
+		System.out.println("All words..");
+		for (String e : ts) {
+				System.out.println(e + "	" + map.get(e));
 		}
+		
+		for (String e : ts) {
+			if (map.get(e) > largest) {
+				largest = map.get(e);
+			}
+		}
+
+		// Printing most frequent
+		System.out.println("\nMost frequently used words..");
+		for (String e : ts) {
+			if (map.get(e) == largest) {
+				System.out.println(e + "	" + map.get(e));
+			}
+		}
+
 	}
 
 }

@@ -80,5 +80,4 @@ public class Lottery {
 		in.close();
 		return userTicket;
 	}
-
 }
