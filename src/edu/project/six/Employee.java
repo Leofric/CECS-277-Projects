@@ -55,10 +55,10 @@ public class Employee implements Comparable<Employee> {
 	public int compareTo(Employee a) {
 		int toReturn;
 
-		if(this.lastName == a.lastName && this.firstName == a.firstName){
+		if(this.lastName.equals(a.lastName) && this.firstName.equals(a.firstName)){
 			toReturn = Integer.compare(this.ID, a.ID);
 		}
-		else if(this.lastName == a.lastName){
+		else if(this.lastName.equals(a.lastName)){
 			toReturn = this.firstName.compareTo(a.firstName);
 		}
 		else toReturn = this.lastName.compareTo(a.lastName);

@@ -1,12 +1,14 @@
 package edu.project.six;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
+
 
 /**
  * This Class allows the user to store employee objects, add, remove, edit, and
@@ -177,13 +179,17 @@ public class EmployeeDatabase {
 	 *            the input scanner, type scanner
 	 */
 	public static void printPerformance(Map<Integer, Employee> em, Map<Employee, String> pm, Scanner in) {
-		Set<Employee> initial = pm.keySet();
-		Set<Employee> sorted = new TreeSet<Employee>(initial);
-
-		for (Employee a : sorted) {
-			System.out.println(a.print() + " Performance: " + pm.get(a));
+		Set<Employee> employees = pm.keySet();
+		ArrayList<Employee> fub = new ArrayList<Employee>();
+		for(Employee e: employees){
+			fub.add(e);
 		}
-		System.out.println();
+		//fub.sort(null);
+		Collections.sort(fub);
+		for(Employee e: fub){
+			System.out.println(e.print()+" "+pm.get(e));
+		}
+		System.out.println("");
 	}
 
 	/**
