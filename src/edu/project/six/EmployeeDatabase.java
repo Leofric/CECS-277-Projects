@@ -6,7 +6,15 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
+/**
+ * This Class allows the user to store employee objects, add, remove, edit, and
+ * display employees and their performance
+ * 
+ * @author alexberthon
+ *
+ */
 public class EmployeeDatabase {
 
 	public static void main(String[] args) {
@@ -39,6 +47,13 @@ public class EmployeeDatabase {
 
 	}
 
+	/**
+	 * This method prints the main menu and returns the users choice
+	 * 
+	 * @param in
+	 *            The input scanner, type Scanner
+	 * @return The option the user chose, type int
+	 */
 	public static int printMenuAndGetChoice(Scanner in) {
 		boolean InvalidInput = true;
 		int choice = 5;
@@ -59,7 +74,19 @@ public class EmployeeDatabase {
 		return choice;
 	}
 
-	public static void addEmployee(Map<Integer, Employee> e, Map<Employee, String> ep, Scanner in) {
+	/**
+	 * This method adds an employee to both the employeeMap and Performance map
+	 * 
+	 * @param em
+	 *            the map that stores the employee objects sorted by their id,
+	 *            type Map<Integer, Employee>
+	 * @param pm
+	 *            the map that stores the employee and their performance, type
+	 *            Map<Employee, String>
+	 * @param in
+	 *            the input scanner, type scanner
+	 */
+	public static void addEmployee(Map<Integer, Employee> em, Map<Employee, String> pm, Scanner in) {
 		System.out.println("Please enter the first name of the employee");
 		in.nextLine();
 		String first = in.nextLine();
@@ -71,7 +98,7 @@ public class EmployeeDatabase {
 			System.out.println("Please enter the ID number of the employee");
 			try {
 				ID = in.nextInt();
-				if (e.containsKey(ID)) {
+				if (em.containsKey(ID)) {
 					System.out.println("An employee with that ID number already exists\n");
 				} else
 					checked = true;
@@ -81,38 +108,141 @@ public class EmployeeDatabase {
 			}
 		}
 		Employee newGuy = new Employee(first, last, ID);
-		e.put(ID, newGuy);
-		System.out.println("Please enter the performance of the employee");
+		em.put(ID, newGuy);
+
+		checked = false;
+		int choice = 0;
+		while (!checked) {
+			System.out.println("Please enter the performance of the employee\n");
+			System.out.println(
+					"Press 1 for Excellent\nPress 2 for Good\nPress 3 for Satisfactory\nPress 4 for Improvement\n");
+			try {
+				choice = in.nextInt();
+				checked = true;
+			} catch (InputMismatchException ab) {
+				System.out.println("-Invalid Selection-\n");
+			}
+		}
+		switch (choice) {
+		case 1:
+			pm.put(newGuy, "Excellent");
+			break;
+		case 2:
+			pm.put(newGuy, "Good");
+			break;
+		case 3:
+			pm.put(newGuy, "Satisfactory");
+			break;
+		case 4:
+			pm.put(newGuy, "Improvement");
+			break;
+		}
 		in.nextLine();
-		ep.put(newGuy, in.nextLine());
 	}
 
-	public static void removeEmployee(Map<Integer, Employee> e, Map<Employee, String> ep, Scanner in) {
+	/**
+	 * This method removes an employee from the employee map and performance map
+	 * 
+	 * @param em
+	 *            the map that stores the employee objects sorted by their id,
+	 *            type Map<Integer, Employee>
+	 * @param pm
+	 *            the map that stores the employee and their performance, type
+	 *            Map<Employee, String>
+	 * @param in
+	 *            the input scanner, type scanner
+	 */
+	public static void removeEmployee(Map<Integer, Employee> em, Map<Employee, String> pm, Scanner in) {
 		System.out.println("Enter the ID number of the employee you wish to remove");
 		int ID = in.nextInt();
-		if (e.containsKey(ID)) {
-			System.out.println("Removed " + e.get(ID).print() + "\n");
-			e.remove(ID);
-			ep.remove(e.get(ID));
+		if (em.containsKey(ID)) {
+			System.out.println("Removed " + em.get(ID).print() + "\n");
+			Employee temp = em.remove(ID);
+			pm.remove(temp);
 		} else
 			System.err.println("-ID number does not exist-\n");
 	}
 
-	public static void printPerformance(Map<Integer, Employee> e, Map<Employee, String> ep, Scanner in) {
-		Set<Integer> fub = e.keySet();
-		for (Integer i : fub) {
-			System.out.println(e.get(i).print() + "Performance: " + ep.get(e.get(i)));
+	/**
+	 * This method prints the employee and their performance sorted by the last
+	 * name of the employee
+	 * 
+	 * @param em
+	 *            the map that stores the employee objects sorted by their id,
+	 *            type Map<Integer, Employee>
+	 * @param pm
+	 *            the map that stores the employee and their performance, type
+	 *            Map<Employee, String>
+	 * @param in
+	 *            the input scanner, type scanner
+	 */
+	public static void printPerformance(Map<Integer, Employee> em, Map<Employee, String> pm, Scanner in) {
+		Set<Employee> initial = pm.keySet();
+		Set<Employee> sorted = new TreeSet<Employee>(initial);
+
+		for (Employee a : sorted) {
+			System.out.println(a.print() + " Performance: " + pm.get(a));
 		}
 		System.out.println();
 	}
 
-	public static void modifyPerformance(Map<Integer, Employee> e, Map<Employee, String> ep, Scanner in) {
+	/**
+	 * This method modifies the performance of an employee
+	 * 
+	 * @param em
+	 *            the map that stores the employee objects sorted by their id,
+	 *            type Map<Integer, Employee>
+	 * @param pm
+	 *            the map that stores the employee and their performance, type
+	 *            Map<Employee, String>
+	 * @param in
+	 *            the input scanner, type scanner
+	 */
+	public static void modifyPerformance(Map<Integer, Employee> em, Map<Employee, String> pm, Scanner in) {
 		System.out.println("Please enter the ID number of the employee you wish to edit");
-		int ID = in.nextInt();
-		System.out.println("Please enter the performance update");
-		String performance = in.nextLine();
-		Employee guy = e.get(ID);
-		ep.replace(guy, performance);
+		boolean InvalidInput = true;
+		int ID = 0;
+		while (InvalidInput) {
+			try {
+				ID = in.nextInt();
+				InvalidInput = false;
+			} catch (InputMismatchException xd) {
+				System.out.println("Employee ID number does not exist\n");
+			}
+			in.nextLine();
+		}
+		String performance = "";
+		InvalidInput = true;
+		int choice = 0;
+
+		while (InvalidInput) {
+			System.out.println("Please enter the performance update");
+			System.out.println(
+					"Press 1 for Excellent\nPress 2 for Good\nPress 3 for Satisfactory\nPress 4 for Improvement");
+			try {
+				choice = in.nextInt();
+				InvalidInput = false;
+			} catch (InputMismatchException ab) {
+				System.out.println("-Invalid Selection-\n");
+			}
+		}
+		switch (choice) {
+		case 1:
+			performance = "Excellent";
+			break;
+		case 2:
+			performance = "Good";
+			break;
+		case 3:
+			performance = "Satisfactory";
+			break;
+		case 4:
+			performance = "Improvement";
+			break;
+		}
+		in.nextLine();
+		Employee guy = em.get(ID);
+		pm.replace(guy, performance);
 		System.out.println("Changed " + guy.print() + "performance to : " + performance + "\n");
 	}
 }
