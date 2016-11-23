@@ -36,7 +36,7 @@ public class EmployeeDatabase {
 				removeEmployee(employeeMap, performanceMap, in);
 				break;
 			case 3:
-				printPerformance(employeeMap, performanceMap, in);
+				printPerformance(performanceMap, in);
 				break;
 			case 4:
 				modifyPerformance(employeeMap, performanceMap, in);
@@ -178,13 +178,12 @@ public class EmployeeDatabase {
 	 * @param in
 	 *            the input scanner, type scanner
 	 */
-	public static void printPerformance(Map<Integer, Employee> em, Map<Employee, String> pm, Scanner in) {
+	public static void printPerformance(Map<Employee, String> pm, Scanner in) {
 		Set<Employee> employees = pm.keySet();
 		ArrayList<Employee> fub = new ArrayList<Employee>();
 		for(Employee e: employees){
 			fub.add(e);
 		}
-		//fub.sort(null);
 		Collections.sort(fub);
 		for(Employee e: fub){
 			System.out.println(e.print()+" "+pm.get(e));
