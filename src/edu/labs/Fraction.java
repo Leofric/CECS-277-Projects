@@ -1,5 +1,6 @@
 package edu.labs;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -75,14 +76,48 @@ public class Fraction {
 
 	/**
 	 * This method sets the values of the numerator and denominator of the
-	 * fraction to user defined values.
+	 * fraction to user defined values. Also checks for invalid input such as
+	 * non int values and 0's in the denominator.
+	 * 
+	 * Side Note on Implementation:
+	 * 2 types of errors can occur,
+	 * 		1) User enters non-int value (a, -, +, etc.)
+	 * 		throws inputmismatch exception, caught and handled below
+	 * 		
+	 * 		2) User enters 0 for the denominator section. 
+	 * 		This also would throw an input mismatch exception, however it would then be handled by the same
+	 * 		catch block as the first error which creates some issues. In the first error case, the scanner
+	 * 		has to have its storage refreshed, otherwise when looping back to ask the user for valid data,
+	 * 		it will use the first entry over and over resulting in an infinite loop. Refreshing the scanner
+	 * 		in the second error case however is not needed and causes the user to have to enter a number twice
+	 * 		for the sequence to start over normally. Therefore I handled each case as 2 distinct exceptions
+	 * 		and created a catch block to handle both differently, thus the longer and less efficient code below.
 	 */
 	public void inputFraction() {
 		Scanner in = new Scanner(System.in);
-		System.out.print("Please enter a integer for the numerator: ");
-		this.numerator = in.nextInt();
-		System.out.print("Please enter a integer for the denominator: ");
-		this.denominator = in.nextInt();
+		Boolean valid = false;
+		int value = 0;
+		IllegalArgumentException e = new IllegalArgumentException(); //for denom = 0 exception
+		while (!valid) {
+			try {
+				System.out.print("Please enter a integer for the numerator: ");
+				value = in.nextInt();
+				this.numerator = value;
+				System.out.print("Please enter a integer for the denominator: ");
+				value = in.nextInt(); 
+				if (value < 1) {
+					throw e;
+				}
+				this.denominator = value;
+				valid = true;
+			} catch (InputMismatchException x) {
+				System.out.println("Invalid input, please try again.");
+				in.next(); // refreshes scanner; without it, infinite loop.
+			} catch (IllegalArgumentException y) {
+				System.out.println("Invalid input, please try again.");
+			}
+			System.out.println();
+		}
 	}
 
 	/**
@@ -126,8 +161,8 @@ public class Fraction {
 		int numerator = f1.getDenominator() * this.numerator + f1.getNumerator() * this.denominator;
 		int denominator = f1.denominator * this.denominator;
 		int co = gcd(numerator, denominator);
-		numerator /= co; //equivalent to.. numerator = numerator / co
-		denominator /= co; //equivalent to.. denominator = denominator / co
+		numerator /= co; // equivalent to.. numerator = numerator / co
+		denominator /= co; // equivalent to.. denominator = denominator / co
 		return new Fraction(numerator, denominator);
 	}
 
